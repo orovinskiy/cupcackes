@@ -5,6 +5,15 @@
  * @url https://github.com/orovinskiy/cupcackes
  * Pair Programing 1
  */
+
+    //associate array for building the checkboxes for flavor
+    $flavorArray = array('grasshopper'=>'The Grasshopper',
+                         'maple'=>'Whiskey Maple Bacon',
+                         'carrot'=>'Carrot Walnut',
+                         'carmel'=>'Salted Caramel Cupcake',
+                         'velevt'=>'Red Velvet',
+                         'lemon'=>'Lemon Drop',
+                         'tiramisu'=>'Tiramisu')     ;
 ?>
 
 <!doctype html>
@@ -33,10 +42,16 @@
 
         <div class="form-group">
             <p class="mb-2">Choose Your Flavors:</p>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="flavors">
-                <label class="form-check-label" for="getName">blueberry</label>
-            </div>
+            <?php
+
+            foreach ($flavorArray as $value=>$flavor){
+
+                echo "<div class='form-check'>
+                        <input class='form-check-input' value='$value' type='checkbox' name='flavors[]'>
+                        <label class='form-check-label' for='getName'>$flavor</label>
+                    </div>";
+            }
+            ?>
         </div>
 
         <button id="submit" type="submit" class="btn btn-primary ">
