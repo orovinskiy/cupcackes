@@ -3,7 +3,7 @@
  * @author Oleg Rovinskiy
  * @date 1/9/2020
  * @url https://github.com/orovinskiy/cupcackes
- * Pair Programing 1
+ * Cup Cake Program. This is a sticky page
  */
 session_start();
     //error reporting..
