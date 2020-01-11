@@ -6,13 +6,12 @@
  * Pair Programing 1
  */
 session_start();
-
     //error reporting..
-    ini_set("display_errors",1);
-    error_reporting(E_ALL);
+    //ini_set("display_errors",1);
+    //error_reporting(E_ALL);
 
     //associate array for building the checkboxes for flavor
-    $flavorArray = array('grasshopper'=>'The Grasshopper',
+    $_SESSION['mainArray'] = array('grasshopper'=>'The Grasshopper',
                          'maple'=>'Whiskey Maple Bacon',
                          'carrot'=>'Carrot Walnut',
                          'carmel'=>'Salted Caramel Cupcake',
@@ -20,35 +19,9 @@ session_start();
                          'lemon'=>'Lemon Drop',
                          'tiramisu'=>'Tiramisu');
 
-    $flavorPost = $_POST['flavors'];
-    $name = $_POST['getName'];
-    $_SESSION['nameErr'] = '';
-    $_SESSION['flavorErr'] = '';
-    $isValid = true;
-
-
-    //validates the name, flavor and makes sure it was not spoofed
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-        if(!isset($name) || preg_match('/^[a-zA-Z ]+$/',$name) !== 1 || $name !== htmlspecialchars($name)){
-            $_SESSION['nameErr'] = 'Please Enter a Valid Name';
-        }
-
-        if(!isset($flavorPost)){
-            $_SESSION['flavorErr'] = 'Please choose at least one option';
-        }
-        else{
-            foreach($flavorPost as $clientValue){
-                if(!array_key_exists($clientValue, $flavorArray)){
-                    $_SESSION['flavorErr'] = 'Please choose at least one option';
-                }
-            }
-        }
-
-        if(!$isValid){
-            header('location: index.php');
-        }
-    }
-
+    //variables from thankYou page to creat sticky page
+    $name = $_SESSION['name'];
+    $flavorPost = $_SESSION['flavor'];
 ?>
 
 <!doctype html>
@@ -70,17 +43,17 @@ session_start();
             <h1 class="display-4">Cupcakes</h1>
         </div>
     </header>
-    <form id="cupcakeForm" action="" method="post">
+    <form id="cupcakeForm" action="thankYou.php" method="post">
         <div class="form-group">
             <label for="getName">Your Name:</label> <span id="textErr">*<?php echo $_SESSION['nameErr'];?></span>
             <input class="Err form-control mb-4"
-                    <?php if(isset($name)){echo "value='$name'";}?> maxlength="80" type="text" placeholder="Enter Your Name Here" id="getName" name="getName">
+                    <?php echo "value='$name'";?> maxlength="80" type="text" placeholder="Enter Your Name Here" id="getName" name="getName">
         </div>
 
         <div class="form-group">
             <p class="mb-2">Choose Your Flavors:  <span id="boxErr">*<?php echo $_SESSION['flavorErr'];?></span></p>
             <?php
-            foreach ($flavorArray as $value=>$flavor){
+            foreach ($_SESSION['mainArray'] as $value=>$flavor){
                 $checked = '';
                 if(isset($flavorPost) && in_array($value,$flavorPost)){
                     $checked = 'checked';
@@ -102,12 +75,15 @@ session_start();
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<!--<script src="scripts/validation.js"></script>-->
+<script src="scripts/validation.js"></script>
 
 <?php
 //to unset all the session variables
 unset( $_SESSION['nameErr']);
 unset( $_SESSION['flavorErr']);
+unset($_SESSION['change']);
+unset($_SESSION['name']);
+unset($_SESSION['flavor']);
 ?>
 </body>
 </html>
