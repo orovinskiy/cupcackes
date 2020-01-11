@@ -53,6 +53,7 @@ session_start();
         <div class="form-group">
             <p class="mb-2">Choose Your Flavors:  <span id="boxErr">*<?php echo $_SESSION['flavorErr'];?></span></p>
             <?php
+            //prints out checkboxes as well as checks the ones which were already picked
             foreach ($_SESSION['mainArray'] as $value=>$flavor){
                 $checked = '';
                 if(isset($flavorPost) && in_array($value,$flavorPost)){

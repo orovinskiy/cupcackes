@@ -1,11 +1,14 @@
 <?php
 session_start();
+
+//gets all the post values
 $name = $_POST['getName'];
 $flavorPost = $_POST['flavors'];
 $isValid = true;
 
 
 //validates the name, flavor and makes sure it was not spoofed
+//also creates session variables to keep errors and values sticky
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(!isset($name) || preg_match('/^[a-zA-Z ]+$/',$name) !== 1 || $name !== htmlspecialchars($name)){
         $_SESSION['nameErr'] = 'Please Enter a Valid Name';
@@ -29,6 +32,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $_SESSION['flavor'] = $flavorPost;
     }
 
+    //if validation fails goes back to index.php
     if(!$isValid){
         header('Location: index.php');
     }
