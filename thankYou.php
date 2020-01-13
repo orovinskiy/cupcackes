@@ -24,7 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     else{
         foreach($flavorPost as $clientValue){
-            if(!array_key_exists($clientValue, $_SESSION['mainArray'])){
+            if(!in_array($clientValue, $_SESSION['mainArray'])){
                 $_SESSION['flavorErr'] = 'Please choose at least one option';
                 $isValid = false;
             }

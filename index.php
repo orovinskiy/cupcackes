@@ -60,7 +60,7 @@ session_start();
                     $checked = 'checked';
                 }
                 echo "<div class='form-check'>
-                        <input class='form-check-input' $checked id='$flavor' value='$value' type='checkbox' name='flavors[]'>
+                        <input class='form-check-input' $checked id='$flavor' value='$flavor' type='checkbox' name='flavors[]'>
                         <label class='form-check-label' for='$flavor'>$flavor</label>
                     </div>";
             }
